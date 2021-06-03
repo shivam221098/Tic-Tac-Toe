@@ -5,16 +5,16 @@ for _ in range(9):
     cells.append(" ")
 
 
-def check(cell, letter):
+def check(cell, check_letter):
     if (
-            ((cell[0] == letter) & (cell[1] == letter) & (cell[2] == letter)) or
-            ((cell[3] == letter) & (cell[4] == letter) & (cell[5] == letter)) or
-            ((cell[6] == letter) & (cell[7] == letter) & (cell[8] == letter)) or
-            ((cell[0] == letter) & (cell[3] == letter) & (cell[6] == letter)) or
-            ((cell[1] == letter) & (cell[4] == letter) & (cell[7] == letter)) or
-            ((cell[2] == letter) & (cell[5] == letter) & (cell[8] == letter)) or
-            ((cell[0] == letter) & (cell[4] == letter) & (cell[8] == letter)) or
-            ((cell[2] == letter) & (cell[4] == letter) & (cell[6] == letter))
+            ((cell[0] == check_letter) & (cell[1] == check_letter) & (cell[2] == check_letter)) or
+            ((cell[3] == check_letter) & (cell[4] == check_letter) & (cell[5] == check_letter)) or
+            ((cell[6] == check_letter) & (cell[7] == check_letter) & (cell[8] == check_letter)) or
+            ((cell[0] == check_letter) & (cell[3] == check_letter) & (cell[6] == check_letter)) or
+            ((cell[1] == check_letter) & (cell[4] == check_letter) & (cell[7] == check_letter)) or
+            ((cell[2] == check_letter) & (cell[5] == check_letter) & (cell[8] == check_letter)) or
+            ((cell[0] == check_letter) & (cell[4] == check_letter) & (cell[8] == check_letter)) or
+            ((cell[2] == check_letter) & (cell[4] == check_letter) & (cell[6] == check_letter))
     ):
         return True
     else:
