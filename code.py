@@ -103,7 +103,7 @@ def main_():
         main_()
 
 
-# main function started ***********************
+# ******************** main function started ***********************
 def main():
     global letter
     n = 0
