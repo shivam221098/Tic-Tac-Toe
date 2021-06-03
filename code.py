@@ -1,4 +1,3 @@
-# write your code here
 cells = []
 letter = ""
 for _ in range(9):
