@@ -6,7 +6,7 @@ for _ in range(9):
 
 
 def check(cell, letter):
-    if(
+    if (
             ((cell[0] == letter) & (cell[1] == letter) & (cell[2] == letter)) or
             ((cell[3] == letter) & (cell[4] == letter) & (cell[5] == letter)) or
             ((cell[6] == letter) & (cell[7] == letter) & (cell[8] == letter)) or
@@ -23,11 +23,13 @@ def check(cell, letter):
 
 def print_():  # function to print the cells in order
     print('''
-    ----------
+    +-------+
     | {} {} {} |
+    +-------+
     | {} {} {} |
+    +-------+
     | {} {} {} |
-    ----------
+    +-------+
     '''.format(cells[0], cells[1], cells[2], cells[3], cells[4], cells[5], cells[6], cells[7], cells[8]))
 
 
@@ -74,13 +76,25 @@ def is_empty(x, y, add_element):
 
 
 def main_():
+    num_coordinate = {
+        "1": "1 1",
+        "2": "2 1",
+        "3": "3 1",
+        "4": "1 2",
+        "5": "2 2",
+        "6": "3 2",
+        "7": "1 3",
+        "8": "2 3",
+        "9": "3 3"
+    }
     global letter
-    x, y = input("Enter the coordinates: ").split()
+    num = input("Enter the coordinates: ")
+    x, y = num_coordinate.get(num).split()
     if x > '3' or y > '3':
         print("Coordinates should be from 1 to 3!")
         main_()
-    elif not is_empty(x, y, False):                             # if the cells are empty, then is_empty() function
-        print("This cell is occupied! Choose another one! ")    # will return True and this statement gets false
+    elif not is_empty(x, y, False):  # if the cells are empty, then is_empty() function
+        print("This cell is occupied! Choose another one! ")  # will return True and this statement gets false
         main_()
     elif is_empty(x, y, True):
         print_()
@@ -90,25 +104,32 @@ def main_():
 
 
 # main function started ***********************
-n = 0
-print_()
-while n != 9:
-    if n % 2 == 0:
-        letter = "X"
-    else:
-        letter = "O"
-    main_()
-    n += 1
-    if check(cells, "X"):
-        print("X wins")
-        break
-    elif check(cells, "O"):
-        print("O wins")
-        break
-    elif (
-        (cells.count("X") == 5 and cells.count("O") == 4) or
-        (cells.count("X") == 4 and cells.count("O") == 5)
-    ):
-        print("Draw")
-        break
+def main():
+    global letter
+    n = 0
+    print_()
+    while n != 9:
+        if n % 2 == 0:
+            print("X's turn")
+            letter = "X"
+        else:
+            print("O's turn")
+            letter = "O"
+        main_()
+        n += 1
+        if check(cells, "X"):
+            print("X wins")
+            break
+        elif check(cells, "O"):
+            print("O wins")
+            break
+        elif (
+                (cells.count("X") == 5 and cells.count("O") == 4) or
+                (cells.count("X") == 4 and cells.count("O") == 5)
+        ):
+            print("Draw")
+            break
 
+
+if __name__ == '__main__':
+    main()
