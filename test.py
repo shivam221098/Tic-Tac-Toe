@@ -10,30 +10,6 @@ class Player:
         self.player_type = player_type
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 3a
 class User(Player):
     # 4a
@@ -43,8 +19,13 @@ class User(Player):
 
     def coordinates(self, fields):
         try:
-            prompt = input("Enter the coordinates:")
-            coord = prompt if prompt.isalpha() else int(prompt) - 1
+            prompt = input("Enter the coordinates: ")
+            if prompt.isalpha():
+                coord = prompt
+
+            else:
+                coord = int(prompt) - 1
+
             if 8 < coord < 0:
                 print("Coordinates should be from 1 to 9!")
                 return self.coordinates(fields)
@@ -74,21 +55,11 @@ class Robot(ABC, Player):
         pass
 
 
-# 3b if easy version
-class Easy(Robot):
-    # Here, AI just marks a random position
-    def coordinates(self, fields):
-        coord = random.randint(0, 8)
-        if fields[coord] != " ":
-            return self.coordinates(fields)
-        return coord
-
-
 # 3b if medium version
 class Medium(Robot):
     def coordinates(self, fields):
         coord = self.two_row_check(fields)
-        if coord == None:
+        if coord is None:
             coord = self.random_coord(fields)
         return coord
 
@@ -119,7 +90,7 @@ class Medium(Robot):
                     return 3 * col.index(" ") + index
             for index, row in enumerate(rows):
                 if row.count(mark) == 2 and row.count(' '):
-                    return 3 * (index) + row.index(" ")
+                    return 3 * index + row.index(" ")
 
             if main_diagonal.count(mark) == 2 and main_diagonal.count(' '):
                 index = main_diagonal.index(' ')
@@ -134,11 +105,13 @@ class Medium(Robot):
 class Game:
     board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
-    command = {'user': User, 'easy': Easy, 'medium': Medium}
+    command = {'user': User, 'medium': Medium}
     mark = ['X', 'O']
 
     def __init__(self):
         self.fields = Game.board.copy()
+        self.player = ""
+        self.play = True
         self.start()
         print(self)
         self.process()
@@ -146,15 +119,19 @@ class Game:
     def __str__(self):
         # displays the board/field
         result = f"---------\n" \
-                 f"| {' '.join(self.fields[0:3])} |\n" \
-                 f"| {' '.join(self.fields[3:6])} |\n" \
                  f"| {' '.join(self.fields[6:9])} |\n" \
+                 f"| {' '.join(self.fields[3:6])} |\n" \
+                 f"| {' '.join(self.fields[0:3])} |\n" \
                  f"---------"
         return result
 
     # 2. This method calls different other methods based on the command
     def start(self):
-        params = input("Input command: ").split()
+        if not self.play:
+            print("Thanks for playing!")
+            exit(0)
+        params = "start user medium".split()
+        self.play = False
         if params[0] == 'exit' and len(params) == 1:
             exit()
         elif params[0] == 'start' and len(params) == 3:
@@ -214,5 +191,5 @@ class Game:
 
 
 # 1. This starts the program, calling the Game constructor and then the 2nd method
-while True:
+if __name__ == '__main__':
     session = Game()
